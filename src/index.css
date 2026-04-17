@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Variables ───────────────────────────────────────── */
+:root {
+  --space:      #050918;
+  --space-alt:  #080D24;
+  --card:       rgba(255, 255, 255, 0.03);
+  --border:     rgba(255, 255, 255, 0.07);
+  --border-hover: rgba(79, 110, 247, 0.4);
+  --accent-1:   #4F6EF7;
+  --accent-2:   #38BDF8;
+  --text:       #FFFFFF;
+  --text-muted: #94A3B8;
+  --text-dim:   #475569;
+}
+
+/* ── Base ────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--space);
+  color: var(--text);
+  font-family: 'Outfit', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Star field ──────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 40%, rgba(255,255,255,0.18) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 40% 8%, rgba(255,255,255,0.22) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 30%, rgba(255,255,255,0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 55%, rgba(255,255,255,0.20) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 82% 12%, rgba(255,255,255,0.18) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 70%, rgba(255,255,255,0.12) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.16) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 85%, rgba(255,255,255,0.14) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 65%, rgba(255,255,255,0.10) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 78% 38%, rgba(255,255,255,0.20) 0%, transparent 100%),
+    radial-gradient(1px 1px at 48% 52%, rgba(255,255,255,0.12) 0%, transparent 100%);
+}
+
+/* ── Typography ──────────────────────────────────────────── */
+.font-display {
+  font-family: 'Syne', system-ui, sans-serif;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #4F6EF7 0%, #38BDF8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-bright {
+  background: linear-gradient(120deg, #818CF8 0%, #38BDF8 50%, #7DD3FC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Cards ───────────────────────────────────────────────── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 24px rgba(79, 110, 247, 0.08), 0 8px 32px rgba(0,0,0,0.3);
+  transform: translateY(-3px);
+}
+
+/* ── Glow effects ────────────────────────────────────────── */
+.glow-blue {
+  box-shadow: 0 0 40px rgba(79, 110, 247, 0.25);
+}
+.glow-sky {
+  box-shadow: 0 0 40px rgba(56, 189, 248, 0.2);
+}
+.btn-glow {
+  box-shadow: 0 4px 24px rgba(79, 110, 247, 0.35);
+  transition: box-shadow 0.25s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+.btn-glow:hover {
+  box-shadow: 0 6px 36px rgba(79, 110, 247, 0.55);
+  transform: translateY(-1px);
+}
+
+/* ── Section label ───────────────────────────────────────── */
+.section-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-sky);
+  display: block;
+}
+
+/* ── Reveal animations ───────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Grid/mesh pattern ───────────────────────────────────── */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(79,110,247,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79,110,247,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ── Gradient border ─────────────────────────────────────── */
+.gradient-border {
+  position: relative;
+}
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(79,110,247,0.5), rgba(56,189,248,0.3), transparent);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* ── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--space); }
+::-webkit-scrollbar-thumb { background: rgba(79,110,247,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(79,110,247,0.5); }
