@@ -1,9 +1,36 @@
 import { useEffect, useRef } from 'react'
 import { ArrowRight, Zap } from 'lucide-react'
+import { motion, useMotionValue, useMotionTemplate, useAnimationFrame } from 'framer-motion'
+
+function GridPattern({ id, offsetX, offsetY }) {
+  return (
+    <svg className="w-full h-full">
+      <defs>
+        <motion.pattern
+          id={id}
+          width="40"
+          height="40"
+          patternUnits="userSpaceOnUse"
+          x={offsetX}
+          y={offsetY}
+        >
+          <path
+            d="M 40 0 L 0 0 0 40"
+            fill="none"
+            stroke="#4F6EF7"
+            strokeWidth="1"
+          />
+        </motion.pattern>
+      </defs>
+      <rect width="100%" height="100%" fill={`url(#${id})`} />
+    </svg>
+  )
+}
 
 export default function Hero({ onContact }) {
   const containerRef = useRef(null)
 
+  // Staggered reveal on mount
   useEffect(() => {
     const els = containerRef.current?.querySelectorAll('[data-reveal]')
     if (!els) return
@@ -15,12 +42,54 @@ export default function Hero({ onContact }) {
     return () => clearTimeout(timer)
   }, [])
 
+  // Mouse tracking for reveal layer
+  const mouseX = useMotionValue(-9999)
+  const mouseY = useMotionValue(-9999)
+
+  function handleMouseMove(e) {
+    const { left, top } = e.currentTarget.getBoundingClientRect()
+    mouseX.set(e.clientX - left)
+    mouseY.set(e.clientY - top)
+  }
+
+  function handleMouseLeave() {
+    mouseX.set(-9999)
+    mouseY.set(-9999)
+  }
+
+  // Infinite drift
+  const gridOffsetX = useMotionValue(0)
+  const gridOffsetY = useMotionValue(0)
+
+  useAnimationFrame(() => {
+    gridOffsetX.set((gridOffsetX.get() + 0.3) % 40)
+    gridOffsetY.set((gridOffsetY.get() + 0.3) % 40)
+  })
+
+  const maskImage = useMotionTemplate`radial-gradient(400px circle at ${mouseX}px ${mouseY}px, black, transparent)`
+
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center overflow-hidden pt-16 bg-grid"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className="relative min-h-screen flex items-center overflow-hidden pt-16"
     >
-      {/* Radial glow — center */}
+      {/* Base grid — always visible, very dim */}
+      <div aria-hidden="true" className="absolute inset-0 z-0 opacity-[0.04] pointer-events-none">
+        <GridPattern id="grid-base" offsetX={gridOffsetX} offsetY={gridOffsetY} />
+      </div>
+
+      {/* Reveal grid — lights up indigo under cursor */}
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-0 z-0 opacity-[0.35] pointer-events-none"
+        style={{ maskImage, WebkitMaskImage: maskImage }}
+      >
+        <GridPattern id="grid-reveal" offsetX={gridOffsetX} offsetY={gridOffsetY} />
+      </motion.div>
+
+      {/* Radial glow — center top */}
       <div
         aria-hidden="true"
         className="absolute inset-0 pointer-events-none"
@@ -120,7 +189,6 @@ export default function Hero({ onContact }) {
             filter: 'blur(1px)',
           }}
         >
-          {/* Inner ring */}
           <div
             className="absolute inset-16 rounded-full border border-white/[0.04]"
             style={{ animation: 'float 8s ease-in-out infinite' }}
