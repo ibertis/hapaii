@@ -69,7 +69,7 @@ export default function Hero({ onContact }) {
           {/* Subheadline */}
           <p
             data-reveal
-            className="reveal text-slate-400 text-lg leading-relaxed mb-10 max-w-lg"
+            className="reveal text-slate-400 text-lg leading-relaxed mb-10 max-w-2xl"
             style={{ fontWeight: 300 }}
           >
             We help entrepreneurs and small business owners put AI to work — practically, without the jargon, and with results you can measure.
