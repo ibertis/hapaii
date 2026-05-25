@@ -11,9 +11,12 @@ export default function Footer({ onContact }) {
 
           {/* Brand */}
           <div className="lg:col-span-2">
-            <span className="font-display font-extrabold text-white text-2xl tracking-tight block mb-3">
-              hap<span className="text-gradient-bright">ai</span>i
-            </span>
+            <div className="flex items-center gap-2.5 mb-3">
+              <img src="/hapaii-emblem-wht.svg" alt="" aria-hidden="true" className="h-7 w-auto" />
+              <span className="font-display font-extrabold text-white text-2xl tracking-tight">
+                hap<span className="text-gradient-bright">ai</span>i
+              </span>
+            </div>
             <p className="text-slate-500 text-sm leading-relaxed max-w-xs mb-5" style={{ fontWeight: 300 }}>
               AI integration & consulting for entrepreneurs and small business owners. Human expertise meets AI capability.
             </p>

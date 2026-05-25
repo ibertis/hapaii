@@ -34,8 +34,11 @@ export default function Navbar({ onContact }) {
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between relative z-10">
         {/* Wordmark */}
-        <a href="#" className="font-display font-extrabold text-2xl text-white tracking-tight select-none">
-          hap<span className="text-gradient-bright">ai</span>i
+        <a href="#" className="flex items-center gap-2.5 select-none">
+          <img src="/hapaii-emblem-wht.svg" alt="" aria-hidden="true" className="h-7 w-auto" />
+          <span className="font-display font-extrabold text-2xl text-white tracking-tight">
+            hap<span className="text-gradient-bright">ai</span>i
+          </span>
         </a>
 
         {/* Desktop nav */}
